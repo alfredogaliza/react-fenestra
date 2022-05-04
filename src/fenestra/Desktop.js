@@ -1,17 +1,13 @@
 import { Component } from "react";
-import { Container } from "react-bootstrap";
 import Taskbar from "./Taskbar";
 import Window from "./Window";
 
 const defaults = {
     title: "Nova Janela",
-    content: "div",
-    props: {},
+    content: () => null,
     maximized: false,
     minimized: false,
     active: true,
-    top: 20,
-    left: 20,
     width: 600,
     height: 400,
     moving: false,
@@ -21,13 +17,11 @@ const defaults = {
 class Desktop extends Component {
 
     static defaultProps = {
-        windows: [],
         icons: [],
-        menu: () => [],
-        onOpened: () => undefined
+        menu: () => []
     }
 
-    index =0;
+    index = 0;
 
     state = {
         windows: [],
@@ -40,29 +34,26 @@ class Desktop extends Component {
         index: 1
     }
 
-    componentDidMount() {
-        this.props.windows.forEach(window => this.open(window, this.props.onOpened));
-    }
-
     api(window) {
         return {
             ...window,
-            open: (w, callback) => this.open(w, callback),
-            close: w => this.close(w ?? window),
-            minimize: w => this.minimize(w ?? window),
-            toggleMaximized: w => this.toggleMaximized(w ?? window),
-            activate: w => this.activate(w ?? window),
-            setTitle: (title, w) => this.setTitle(w ?? window, title),
-            setContent: (content, w) => this.setContent(w ?? window, content),
-            setPosition: (top, left, w) => this.setPosition(w ?? window, top, left),
-            setSize: (width, height, w) => this.setSize(w ?? window, width, height),
-            startMove: (posX, posY, w) => this.startMove(w ?? window, posX, posY),
-            startResize: (posX, posY, w) => this.startResize(w ?? window, posX, posY),
+            windows: this.state.windows,
+            open: (w, callback = () => undefined) => this.open(w, callback),
+            close: (w = window, callback = () => undefined) => this.close(w , callback),
+            minimize: (w = window) => this.minimize(w),
+            toggleMaximized: (w = window) => this.toggleMaximized(w),
+            activate: (w = window) => this.activate(w),
+            setTitle: (title, w = window) => this.setTitle(title, w),
+            setContent: (content, w = window) => this.setContent(content, w),
+            setPosition: (top, left, w = window) => this.setPosition(top, left, w),
+            setSize: (width, height, w = window) => this.setSize(width, height, w),
+            startMove: (posX, posY, w = window) => this.startMove(posX, posY, w),
+            startResize: (posX, posY, w = window) => this.startResize(posX, posY, w),
         }
 
     }
 
-    startMove(window, posX, posY) {
+    startMove(posX, posY, window) {
         
         const orgX = this.state.windows.find(w => w.index === window.index)?.left;
         const orgY = this.state.windows.find(w => w.index === window.index)?.top;
@@ -81,7 +72,7 @@ class Desktop extends Component {
         }));
     }
 
-    startResize(window, posX, posY) {
+    startResize(posX, posY, window) {
         
         const orgX = this.state.windows.find(w => w.index === window.index)?.width;        
         const orgY = this.state.windows.find(w => w.index === window.index)?.height;
@@ -141,7 +132,7 @@ class Desktop extends Component {
         }
     }
 
-    setTitle(window, title) {
+    setTitle(title, window) {
         this.setState(state => ({
             windows: state.windows.map(w =>
                 w.index === window.index ?
@@ -154,7 +145,7 @@ class Desktop extends Component {
         }))
     }
 
-    setContent(window, content) {
+    setContent(content, window) {
         this.setState(state => ({
             windows: state.windows.map(w =>
                 w.index === window.index ?
@@ -167,7 +158,7 @@ class Desktop extends Component {
         }))
     }
 
-    setPosition(window, top, left) {
+    setPosition(top, left, window) {
         this.setState(state => ({
             windows: state.windows.map(w =>
                 w.index === window.index ?
@@ -180,7 +171,7 @@ class Desktop extends Component {
         }))
     }
 
-    setSize(window, width, height) {
+    setSize(width, height, window) {
         this.setState(state => ({
             windows: state.windows.map(w =>
                 w.index === window.index ?
@@ -221,22 +212,13 @@ class Desktop extends Component {
         }), () => this.activate(window));
     }
 
-    activate(window, callback = () => undefined) {
+    activate(window) {
         this.setState(state => ({
             windows: state.windows.map(w => ({
                 ...w,
                 active: w.index === window.index,
                 minimized: w.index !== window.index && w.minimized
             })),
-        }), () => callback(window));
-    }
-
-    deactivate() {
-        this.setState(state => ({
-            windows: state.windows.map(w => ({
-                ...w,
-                active: false
-            }))
         }));
     }
 
@@ -245,7 +227,7 @@ class Desktop extends Component {
         const newWindow = this.api({
             ...defaults,            
             active: true,
-            top: 20 + this.index * 50,
+            top: 54 +  54 * (this.index % 6),
             left: 20 + this.index * 50,
             ...window,
             index: this.index++
@@ -259,16 +241,16 @@ class Desktop extends Component {
         }), () => callback(newWindow));
     }
 
-    close(window) {
+    close(window, callback = () => undefined) {
         this.setState(state => ({
             windows: state.windows.filter(w => w.index !== window.index)
-        }));
+        }), () => callback(window));
     }
 
     render() {
         return (
             <div
-                className="fenestra-desktop"
+                className={`fenestra-desktop ${this.state.isMoving? 'fenestra-desktop-moving' : ''} ${this.state.isResizing? 'fenestra-desktop-resizing' : ''}`}
                 onMouseMove={event => this.move(event)} onTouchMove={event => this.move(event)}
                 onMouseUp={() => this.stopMove()} onTouchEnd={() => this.stopMove()}
             >

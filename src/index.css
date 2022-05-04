@@ -1,43 +1,65 @@
 .fenestra-desktop {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
 }
 
-.fenestra-minimized {
+.fenestra-desktop-moving * {
+  cursor: grabbing !important;
+}
+
+.fenestra-desktop-resizing {
+  cursor: nwse-resize !important;
+}
+
+.fenestra-window-minimized {
   display: none !important;
 }
 
-.fenestra-maximized {
+.fenestra-window-maximized {
   display: block !important;
   position: fixed !important;;
   top: 0 !important;
   left: 0 !important;
-  bottom: 0 !important;
+  bottom: 54 !important;
   right: 0 !important;
   width: auto !important;
   height: auto !important;  
   border-radius: 0px !important;
 }
 
-.fenestra-maximized .card-header:first-child,
-.fenestra-maximized .card-footer:last-child {
+.fenestra-window-maximized .card-header:first-child,
+.fenestra-window-maximized .card-footer:last-child {
   border-radius: 0px;
 }
 
-.fenestra-normal {
+.fenestra-window-normal {
   display: block !important;
   position: absolute !important;
 }
 
-.fenestra-active {
-  z-index: 10000;
+@media (max-width: 768px) {
+  .fenestra-window-normal {
+    display: block !important;
+    position: fixed !important;;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 54 !important;
+    right: 0 !important;
+    width: auto !important;
+    height: auto !important;  
+    border-radius: 0px !important;
+  }
+}
+
+.fenestra-window-active {
+  z-index: 9999;
 }
 
 .fenestra-taskbar {
-  z-index: 9999;
+  z-index: 10000;
 }
 
 .fenestra-taskbar-button {
@@ -49,5 +71,9 @@
 
 .fenestra-window-buttons {
   white-space: nowrap;
+}
 
+.fenestra-window-title,
+.fenestra-window-footer {
+  cursor: grab;
 }

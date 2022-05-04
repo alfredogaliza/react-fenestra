@@ -1,37 +1,28 @@
+import { faClock, faCogs, faHome, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Component } from "react";
-import { Button } from "react-bootstrap";
+import { Button, ListGroup } from "react-bootstrap";
 import Desktop from "./fenestra/Desktop";
 
 class App extends Component {
   render() {
-    return <Desktop 
+    return <Desktop
     icons={[
-      ({fenestra}) => <Button onClick={() => fenestra.open({title: "Nova Janela", top: 20, left: 100}, window => console.log(window))}>Nova Janela</Button>,
-      ({fenestra}) => <Button onClick={() => fenestra.open({title: "Nova Janela", content: () => <h1>Hello, World!</h1>}, window => console.log(window))}>Hello, World!</Button>
-    ]}
-    windows={[
-
+      ({fenestra}) => <Button onClick={() => fenestra.open({title: "Nova Janela", top: 20, left: 100})}>Nova Janela</Button>,
+      ({fenestra}) => <Button onClick={() => fenestra.open({title: "Nova Janela", content: ({fenestra}) => <iframe width={"100%"} height={"100%"} src="https://bombeiros.pa.gov.br" frameBorder={0}/>})}>Browser</Button>
     ]}
     menu={fenestra => [
-      {
-        title: "Opção 1",
-        onClick: () => fenestra.open({}, window => console.log(window))
-      },
-      {
-        title: "Opção 2",
+      { title: <><FontAwesomeIcon icon={faHome}/> Página Inicial</> },
+      { title: <><FontAwesomeIcon icon={faCogs}/> Administração</>,
         submenu: [
-          {
-            title: "Opção 3",
-            onClick: () => fenestra.open({}, window => console.log(window))
-          },
-          {
-            title: "Opção 4",
-            onClick: () => fenestra.open({}, window => console.log(window))
-          },
+          { title: <div role="button" onClick={() => fenestra.open({title: 'Usuários'})}>
+            <FontAwesomeIcon icon={faUsers}/> Usuários
+            </div> },
+          { title: <><FontAwesomeIcon icon={faClock}/> Acesso</> }
         ]
       },
     ]}
-    onOpened={window => console.log(window)}/>;
+    />;
   }
 }
 export default App;
