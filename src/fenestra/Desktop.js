@@ -1,5 +1,4 @@
 import { Component } from "react";
-import { Container } from "react-bootstrap";
 import Taskbar from "./Taskbar";
 import Window from "./Window";
 

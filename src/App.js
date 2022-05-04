@@ -1,13 +1,14 @@
 import { Component } from "react";
 import { Button } from "react-bootstrap";
 import Desktop from "./fenestra/Desktop";
+import Browser from "./fenestra/Browser";
 
 class App extends Component {
   render() {
     return <Desktop 
     icons={[
       ({fenestra}) => <Button onClick={() => fenestra.open({title: "Nova Janela", top: 20, left: 100}, window => console.log(window))}>Nova Janela</Button>,
-      ({fenestra}) => <Button onClick={() => fenestra.open({title: "Nova Janela", content: () => <h1>Hello, World!</h1>}, window => console.log(window))}>Hello, World!</Button>
+      ({fenestra}) => <Button onClick={() => fenestra.open({title: "Nova Janela", content: ({fenestra}) => <Browser fenestra />}, window => console.log(window))}>Hello, World!</Button>
     ]}
     windows={[
 

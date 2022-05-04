@@ -1,7 +1,7 @@
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Component } from "react";
-import { Button, Card, Dropdown, DropdownButton, ListGroup, ListGroupItem, Navbar } from "react-bootstrap";
+import { Button, Card, Dropdown, Navbar } from "react-bootstrap";
 import Accordion from 'react-bootstrap/Accordion';
 
 class Taskbar extends Component {
