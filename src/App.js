@@ -3,13 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Component } from "react";
 import { Button, ListGroup } from "react-bootstrap";
 import Desktop from "./fenestra/Desktop";
+import Browser from "./fenestra/Browser";
 
 class App extends Component {
   render() {
     return <Desktop
     icons={[
-      ({fenestra}) => <Button onClick={() => fenestra.open({title: "Nova Janela", top: 20, left: 100})}>Nova Janela</Button>,
-      ({fenestra}) => <Button onClick={() => fenestra.open({title: "Nova Janela", content: ({fenestra}) => <iframe width={"100%"} height={"100%"} src="https://bombeiros.pa.gov.br" frameBorder={0}/>})}>Browser</Button>
+      ({fenestra}) => <Button onClick={() => fenestra.open({title: "Nova Janela", top: 20, left: 100}, window => console.log(window))}>Nova Janela</Button>,
+      ({fenestra}) => <Button onClick={() => fenestra.open({title: "Nova Janela", content: ({fenestra}) => <Browser fenestra />}, window => console.log(window))}>Hello, World!</Button>
+    ]}
+    windows={[
+
     ]}
     menu={fenestra => [
       { title: <><FontAwesomeIcon icon={faHome}/> Página Inicial</> },
