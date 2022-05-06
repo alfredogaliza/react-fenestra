@@ -1,7 +1,11 @@
 {
   "name": "react-fenestra",
   "version": "1.0.8",
-  "description": "React Component for Window, Taskbar, Icon and Desktop User Interface",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alfredogaliza/react-fenestra.git"
+  },
+  "description": "Componente Responsivo em React para Interface de Usuário com Desktop, Ícones, Janelas e Barra de Tarefas.",
   "main": "dist/index.js",
   "directories": {
     "test": "test"
@@ -19,7 +23,7 @@
     "component"
   ],
   "author": "Luiz Alfredo Galiza <alfredogaliza@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.17.10",
