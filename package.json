@@ -1,0 +1,54 @@
+{
+  "name": "react-fenestra",
+  "version": "1.0.8",
+  "description": "React Component for Window, Taskbar, Icon and Desktop User Interface",
+  "main": "dist/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d dist --copy-files",
+    "start": "webpack serve"
+  },
+  "keywords": [
+    "react",
+    "ui",
+    "desktop",
+    "window",
+    "component"
+  ],
+  "author": "Luiz Alfredo Galiza <alfredogaliza@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-transform-react-inline-elements": "^7.16.7",
+    "@babel/plugin-transform-react-jsx": "^7.17.3",
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-react": "^7.16.7",
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "bootstrap": "^4.6.1",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "react": "^18.1.0",
+    "react-bootstrap": "^1.6.4",
+    "react-dom": "^18.1.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "peerDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
+    "bootstrap": "^4.6.1",
+    "react": "^18.1.0",
+    "react-bootstrap": "^1.6.4",
+    "react-dom": "^18.1.0"
+  }
+}

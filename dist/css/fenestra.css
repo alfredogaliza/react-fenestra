@@ -1,0 +1,107 @@
+.fenestra-desktop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.fenestra-desktop-icons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 54px;
+  right: 0;
+}
+
+.fenestra-taskbar {
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  right: 0;
+  height: 54px;
+}
+
+.fenestra-desktop-moving * {
+  cursor: grabbing !important;
+}
+
+.fenestra-desktop-resizing * {
+  cursor: nwse-resize !important;
+}
+
+.fenestra-window-normal {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.fenestra-window-minimized {
+  display: none !important;
+}
+
+.fenestra-window-maximized {
+  position: absolute;
+  top: 0 !important;
+  left: 0 !important;
+  bottom: 54px !important;
+  right: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 0px !important;
+  border: none;
+}
+
+.fenestra-window-maximized .card-header:first-child,
+.fenestra-window-maximized .card-footer:last-child {
+  border-radius: 0px;
+}
+
+@media (max-width: 768px) {
+  .fenestra-window-normal {
+    position: absolute;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 54px !important;
+    right: 0 !important; 
+    width: auto !important;
+    height: auto !important;  
+    border-radius: 0px !important;
+    border: none;
+  }
+
+  .fenestra-window-normal .fenestra-window-footer {
+    display: none !important
+  }
+}
+
+.fenestra-window-active {
+  z-index: 9999;
+}
+
+.fenestra-taskbar-button {
+  width: 120px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.fenestra-window-buttons {
+  white-space: nowrap;
+}
+
+.fenestra-window-body {
+  overflow: auto;
+}
+
+.fenestra-window-title,
+.fenestra-window-footer {
+  cursor: grab;
+}
+
+.fenestra-window-maximized .fenestra-window-footer {
+  display: none !important
+}
+
+.fenestra-icon {
+  display: inherit;
+}
