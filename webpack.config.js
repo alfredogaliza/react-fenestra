@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
     entry: './test/index.js',
     output: {
-        path: path.resolve(__dirname, './public'),
+        path: path.resolve(__dirname, 'public'),
         filename: 'bundle.js',
     },
     resolve: {
@@ -24,7 +24,7 @@ module.exports = {
         ],
     },
     plugins: [new HtmlWebpackPlugin({
-        template: "./test/index.html"
+        template: "./public/index.html"
     })],
     mode: 'development',
     devServer: {
