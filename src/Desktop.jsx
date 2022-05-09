@@ -40,7 +40,7 @@ class Desktop extends Component {
             ...window,
             windows: this.state.windows,
             open: (w, callback = () => undefined) => this.open(w, callback),
-            close: (w = window, callback = () => undefined) => this.close(w , callback),
+            close: (w = window, callback = () => undefined) => this.close(w, callback),
             minimize: (w = window) => this.minimize(w),
             toggleMaximized: (w = window) => this.toggleMaximized(w),
             activate: (w = window) => this.activate(w),
@@ -55,7 +55,7 @@ class Desktop extends Component {
     }
 
     startMove(posX, posY, window) {
-        
+
         const orgX = this.state.windows.find(w => w.index === window.index)?.left;
         const orgY = this.state.windows.find(w => w.index === window.index)?.top;
 
@@ -74,8 +74,8 @@ class Desktop extends Component {
     }
 
     startResize(posX, posY, window) {
-        
-        const orgX = this.state.windows.find(w => w.index === window.index)?.width;        
+
+        const orgX = this.state.windows.find(w => w.index === window.index)?.width;
         const orgY = this.state.windows.find(w => w.index === window.index)?.height;
 
         this.setState(state => ({
@@ -120,14 +120,14 @@ class Desktop extends Component {
                     w.moving ?
                         {
                             ...w,
-                            top: Math.min(Math.max(0, state.orgY + (posY - state.posY)), rect.height - w.height - 54),
+                            top: Math.min(Math.max(0, state.orgY + (posY - state.posY)), rect.height - w.height),
                             left: Math.min(Math.max(0, state.orgX + (posX - state.posX)), rect.width - w.width)
                         } :
                         (w.resizing ?
                             {
                                 ...w,
                                 width: Math.min(Math.max(240, state.orgX + (posX - state.posX)), rect.width - w.left),
-                                height: Math.min(Math.max(120, state.orgY + (posY - state.posY)), rect.height - w.top - 54)
+                                height: Math.min(Math.max(120, state.orgY + (posY - state.posY)), rect.height - w.top)
                             } :
                             w),
                 )
@@ -228,9 +228,9 @@ class Desktop extends Component {
     open(window = {}, callback = () => undefined) {
 
         const newWindow = this.api({
-            ...defaults,            
+            ...defaults,
             active: true,
-            top: 54 +  54 * (this.index % 6),
+            top: 54 + 54 * (this.index % 6),
             left: 20 + this.index * 50,
             ...window,
             index: this.index++
@@ -239,7 +239,7 @@ class Desktop extends Component {
         this.setState(state => ({
             windows: [
                 ...state.windows.map(w => ({ ...w, active: false })),
-                newWindow                
+                newWindow
             ],
         }), () => callback(newWindow));
     }
@@ -250,18 +250,20 @@ class Desktop extends Component {
         }), () => callback(window));
     }
 
-    render() {
+    render() {        
         return (
             <div
-                className={`fenestra-desktop ${this.state.isMoving? 'fenestra-desktop-moving' : ''} ${this.state.isResizing? 'fenestra-desktop-resizing' : ''}`}
-                onMouseMove={event => this.move(event)} onTouchMove={event => this.move(event)}
-                onMouseUp={() => this.stopMove()} onTouchEnd={() => this.stopMove()}
+                ref = {this.ref}
+                className={`d-flex flex-column fenestra-desktop ${this.state.isMoving ? 'fenestra-desktop-moving' : ''} ${this.state.isResizing ? 'fenestra-desktop-resizing' : ''}`}
             >
-                <div className="fenestra-desktop-icons d-flex flex-column flex-wrap align-content-start bg-light">
+                <div
+                    onMouseMove={event => this.move(event)} onTouchMove={event => this.move(event)}
+                    onMouseUp={() => this.stopMove()} onTouchEnd={() => this.stopMove()}
+                    className="w-100 flex-grow-1 d-flex flex-column flex-wrap align-content-start bg-light fenestra-desktop-icons">
                     {this.props.icons.map((Icon, key) => <Icon key={key} fenestra={this.api()} />)}
+                    {this.state.windows.map(fenestra => <Window key={fenestra.index} fenestra={fenestra} />)}
                 </div>
-                {this.state.windows.map(fenestra => <Window key={fenestra.index} fenestra={fenestra} />)}
-                <Taskbar fenestra={this.api()} menu={this.props.menu} icons={this.props.icons} windows={this.state.windows} />
+                <Taskbar fenestra={this.api()} windows={this.state.windows} />
             </div>
         )
     }

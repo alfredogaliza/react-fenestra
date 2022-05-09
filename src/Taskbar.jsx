@@ -9,7 +9,7 @@ class Taskbar extends Component {
 
   render() {
     return (
-      <Navbar fixed="bottom" className="bg-dark fenestra-taskbar"> 
+      <Navbar className="bg-dark fenestra-taskbar"> 
         {this.props.windows.map((window, key) =>
           <Button className="fenestra-taskbar-button mx-1" title={window.title} key={key} variant="outline-primary" active={window.active} onClick={() => window.activate()}>
             {window.title}
