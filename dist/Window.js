@@ -11,6 +11,7 @@ function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflec
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
+import { faRulerCombined } from "@fortawesome/free-solid-svg-icons";
 import { faUpRightAndDownLeftFromCenter, faWindowClose, faWindowMaximize, faWindowMinimize, faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Component } from "react";
@@ -77,14 +78,12 @@ var Window = /*#__PURE__*/function (_Component) {
         width: this.props.fenestra.width,
         height: this.props.fenestra.height
       };
-      return /*#__PURE__*/_jsx("div", {
-        onMouseDownCapture: function onMouseDownCapture() {
+      return /*#__PURE__*/_jsx(Card, {
+        onMouseDown: function onMouseDown() {
           return _this.props.fenestra.activate();
         },
         style: style,
-        className: this.props.fenestra.minimized ? 'fenestra-window-minimized' : (this.props.fenestra.maximized ? 'fenestra-window-maximized' : 'fenestra-window-normal') + (this.props.fenestra.active ? ' fenestra-window-active' : '')
-      }, void 0, /*#__PURE__*/_jsx(Card, {
-        className: "flex-column w-100 h-100"
+        className: 'fenestra-window d-flex flex-column' + (this.props.fenestra.active ? ' fenestra-window-active' : '') + (this.props.fenestra.minimized ? ' fenestra-window-minimized' : '') + (this.props.fenestra.resizeable ? ' fenestra-window-resizeable' : '') + (this.props.fenestra.maximized ? ' fenestra-window-maximized' : '')
       }, void 0, /*#__PURE__*/_jsx(Card.Header, {
         onMouseDown: function onMouseDown(event) {
           return _this.props.fenestra.moveable && _this.startMove(event);
@@ -95,7 +94,7 @@ var Window = /*#__PURE__*/function (_Component) {
         onDoubleClick: function onDoubleClick() {
           return _this.props.fenestra.resizeable && _this.props.fenestra.toggleMaximized();
         },
-        className: this.props.fenestra.active ? 'bg-dark text-light d-flex justify-content-between align-items-center fenestra-window-title' : 'bg-light text-secondary d-flex justify-content-between align-items-center fenestra-window-title'
+        className: 'd-flex justify-content-between align-items-center fenestra-window-title' + (this.props.fenestra.active ? ' bg-dark text-light' : ' bg-light text-secondary')
       }, void 0, /*#__PURE__*/_jsx("div", {}, void 0, this.props.fenestra.title), /*#__PURE__*/_jsx("div", {
         className: "fenestra-window-buttons",
         onMouseDown: function onMouseDown(e) {
@@ -135,27 +134,19 @@ var Window = /*#__PURE__*/function (_Component) {
         className: "flex-grow-1 p-1 fenestra-window-body"
       }, void 0, /*#__PURE__*/_jsx(this.props.fenestra.content, {
         fenestra: this.props.fenestra
-      })), /*#__PURE__*/_jsx(Card.Footer, {
-        onMouseDown: function onMouseDown(event) {
-          return _this.props.fenestra.moveable && _this.startMove(event);
-        },
-        onTouchStart: function onTouchStart(event) {
-          return _this.props.fenestra.moveable && _this.startMove(event);
-        },
-        className: "fenestra-window-footer d-flex justify-content-between align-items-center text-small py-1 px-2"
-      }, void 0, "\xA0", !this.props.fenestra.maximized && this.props.fenestra.resizeable && /*#__PURE__*/_jsx("div", {
-        className: "text-right d-none d-md-block",
+      }), /*#__PURE__*/_jsx("div", {
         onMouseDown: function onMouseDown(event) {
           return _this.startResize(event);
         },
         onTouchStart: function onTouchStart(event) {
           return _this.startResize(event);
-        }
+        },
+        className: "fenestra-window-resize"
       }, void 0, _FontAwesomeIcon3 || (_FontAwesomeIcon3 = /*#__PURE__*/_jsx(FontAwesomeIcon, {
-        icon: faUpRightAndDownLeftFromCenter,
+        icon: faRulerCombined,
         flip: "horizontal",
         size: "xs"
-      }))))));
+      })))));
     }
   }]);
 
