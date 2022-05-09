@@ -94,8 +94,7 @@
   color: white;
 }
 
-.fenestra-window-maximized
-.fenestra-window-resize {
+.fenestra-window-maximized > .fenestra-window-body > .fenestra-window-resize {
   display: none;
 }
 
