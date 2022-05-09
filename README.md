@@ -96,13 +96,13 @@ Todos os componentes renderizados no conteúdo das janelas recebem a propriedade
 |--------|----|------------|-----|
 |window | Objeto | (Segue abaixo) | Detalhes da janela em que foi aberto o componente.
 |window.title | string | (vazio) | Título da janela
-|window.content | Definição | null | Definição do Conteúdo da janela. Tal definição receberá a propriedade _fenestra_ ao ser instanciado.
+|window.index | inteiro | (incremental) | Indice único da janela.
+|window.content | Definição React | null | Definição do Conteúdo da janela. Tal definição receberá a propriedade _fenestra_ ao ser instanciada.
 |window.maximized| bool | false | Indica se a janela está maximizada.
 |window.minimized | bool | false | Indica se a janela está minimizada.
 |window.active | bool | true | Indica se a janela está ativa (foreground).
 |window.top | inteiro | 0 | Indica a distância da janela à borda superior do desktop.
 |window.left | inteiro | 0 | Indica a distância da janela à borda esquerda do desktop.
-|window.index | inteiro | 600 | Indice único da janela.
 |window.width | inteiro | 600 | Indica a Largura atual da janela.
 |window.height | inteiro | 400 | Indica a Altura atual da janela.
 |window.moving | bool | false | Indica se a janela está em movimento.
@@ -121,6 +121,10 @@ Todos os componentes renderizados no conteúdo das janelas recebem a propriedade
 |setSize| Função | (width, height, w = window) => undefined| Altera o tamanho da janela.
 |startMove| Função | (posX, posY, w = window) => undefined| Inicia a movimentação da janela a partir da posição atual.
 |startResize| Função | (posX, posY, w = window) => undefined| Inicia o redimensionamento da janela a partir da posição atual.
+
+# Notas da Versão
+## 1.0.9
+* Melhorias na responsividade da interface
 
 # Licença
 MIT
