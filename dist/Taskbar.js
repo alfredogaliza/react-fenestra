@@ -28,7 +28,6 @@ var Taskbar = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/_jsx(Navbar, {
-        fixed: "bottom",
         className: "bg-dark fenestra-taskbar"
       }, void 0, this.props.windows.map(function (window, key) {
         return /*#__PURE__*/_jsx(Button, {

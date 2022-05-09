@@ -7,18 +7,10 @@
 }
 
 .fenestra-desktop-icons {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 54px;
-  right: 0;
+  position: relative;
 }
 
 .fenestra-taskbar {
-  position: absolute;
-  left: 0;
-  bottom: 0px;
-  right: 0;
   height: 54px;
 }
 
@@ -43,7 +35,7 @@
   position: absolute;
   top: 0 !important;
   left: 0 !important;
-  bottom: 54px !important;
+  bottom: 0 !important;
   right: 0 !important;
   width: auto !important;
   height: auto !important;
@@ -91,6 +83,7 @@
 
 .fenestra-window-body {
   overflow: auto;
+  position: relative;
 }
 
 .fenestra-window-title,

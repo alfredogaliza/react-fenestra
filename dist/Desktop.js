@@ -19,6 +19,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 import { Component } from "react";
 import Taskbar from "./Taskbar";
 import Window from "./Window";
+import { jsxs as _jsxs } from "react/jsx-runtime";
 var defaults = {
   title: "",
   content: function content() {
@@ -208,11 +209,11 @@ var Desktop = /*#__PURE__*/function (_Component) {
           return {
             windows: state.windows.map(function (w) {
               return w.moving ? _objectSpread(_objectSpread({}, w), {}, {
-                top: Math.min(Math.max(0, state.orgY + (posY - state.posY)), rect.height - w.height - 54),
+                top: Math.min(Math.max(0, state.orgY + (posY - state.posY)), rect.height - w.height),
                 left: Math.min(Math.max(0, state.orgX + (posX - state.posX)), rect.width - w.width)
               }) : w.resizing ? _objectSpread(_objectSpread({}, w), {}, {
                 width: Math.min(Math.max(240, state.orgX + (posX - state.posX)), rect.width - w.left),
-                height: Math.min(Math.max(120, state.orgY + (posY - state.posY)), rect.height - w.top - 54)
+                height: Math.min(Math.max(120, state.orgY + (posY - state.posY)), rect.height - w.top)
               }) : w;
             })
           };
@@ -365,36 +366,36 @@ var Desktop = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this4 = this;
 
-      return /*#__PURE__*/_jsx("div", {
-        className: "fenestra-desktop ".concat(this.state.isMoving ? 'fenestra-desktop-moving' : '', " ").concat(this.state.isResizing ? 'fenestra-desktop-resizing' : ''),
-        onMouseMove: function onMouseMove(event) {
-          return _this4.move(event);
-        },
-        onTouchMove: function onTouchMove(event) {
-          return _this4.move(event);
-        },
-        onMouseUp: function onMouseUp() {
-          return _this4.stopMove();
-        },
-        onTouchEnd: function onTouchEnd() {
-          return _this4.stopMove();
-        }
-      }, void 0, /*#__PURE__*/_jsx("div", {
-        className: "fenestra-desktop-icons d-flex flex-column flex-wrap align-content-start bg-light"
-      }, void 0, this.props.icons.map(function (Icon, key) {
-        return /*#__PURE__*/_jsx(Icon, {
-          fenestra: _this4.api()
-        }, key);
-      })), this.state.windows.map(function (fenestra) {
-        return /*#__PURE__*/_jsx(Window, {
-          fenestra: fenestra
-        }, fenestra.index);
-      }), /*#__PURE__*/_jsx(Taskbar, {
-        fenestra: this.api(),
-        menu: this.props.menu,
-        icons: this.props.icons,
-        windows: this.state.windows
-      }));
+      return /*#__PURE__*/_jsxs("div", {
+        ref: this.ref,
+        className: "d-flex flex-column fenestra-desktop ".concat(this.state.isMoving ? 'fenestra-desktop-moving' : '', " ").concat(this.state.isResizing ? 'fenestra-desktop-resizing' : ''),
+        children: [/*#__PURE__*/_jsx("div", {
+          onMouseMove: function onMouseMove(event) {
+            return _this4.move(event);
+          },
+          onTouchMove: function onTouchMove(event) {
+            return _this4.move(event);
+          },
+          onMouseUp: function onMouseUp() {
+            return _this4.stopMove();
+          },
+          onTouchEnd: function onTouchEnd() {
+            return _this4.stopMove();
+          },
+          className: "w-100 flex-grow-1 d-flex flex-column flex-wrap align-content-start bg-light fenestra-desktop-icons"
+        }, void 0, this.props.icons.map(function (Icon, key) {
+          return /*#__PURE__*/_jsx(Icon, {
+            fenestra: _this4.api()
+          }, key);
+        }), this.state.windows.map(function (fenestra) {
+          return /*#__PURE__*/_jsx(Window, {
+            fenestra: fenestra
+          }, fenestra.index);
+        })), /*#__PURE__*/_jsx(Taskbar, {
+          fenestra: this.api(),
+          windows: this.state.windows
+        })]
+      });
     }
   }]);
 
