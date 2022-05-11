@@ -14,7 +14,7 @@ npm install react-fenestra
 ```
 
 # Utilização
-```jsx
+```js
 //Importações padrão do React
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -120,7 +120,7 @@ Todos os componentes renderizados no conteúdo das janelas recebem a propriedade
 |setPosition| Função | (top, left, w = window) => undefined|Altera a posição da janela.
 |setSize| Função | (width, height, w = window) => undefined| Altera o tamanho da janela.
 |startMove| Função | (posX, posY, w = window) => undefined| Inicia a movimentação da janela a partir da posição atual.
-|startResize| Função | (posX, posY, w = window) => undefined| Inicia o redimensionamento da janela a partir da posição atual.
+|startResize| Função | (posX, posY, dir, w = window) => undefined| Inicia o redimensionamento da janela a partir da posição atual.
 
 # Notas da Versão
 ## 1.0.9

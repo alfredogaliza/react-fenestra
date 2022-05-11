@@ -5,7 +5,7 @@ import _inherits from "@babel/runtime/helpers/inherits";
 import _possibleConstructorReturn from "@babel/runtime/helpers/possibleConstructorReturn";
 import _getPrototypeOf from "@babel/runtime/helpers/getPrototypeOf";
 
-var _FontAwesomeIcon, _FontAwesomeIcon2, _FontAwesomeIcon3;
+var _FontAwesomeIcon, _FontAwesomeIcon2;
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -59,13 +59,13 @@ var Window = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "startResize",
-    value: function startResize(event) {
+    value: function startResize(event, dir) {
       var _event$targetTouches$3, _event$targetTouches$4;
 
       event.stopPropagation();
       var posX = event.clientX || ((_event$targetTouches$3 = event.targetTouches[0]) === null || _event$targetTouches$3 === void 0 ? void 0 : _event$targetTouches$3.pageX);
       var posY = event.clientY || ((_event$targetTouches$4 = event.targetTouches[0]) === null || _event$targetTouches$4 === void 0 ? void 0 : _event$targetTouches$4.pageY);
-      this.props.fenestra.startResize(posX, posY);
+      this.props.fenestra.startResize(posX, posY, dir);
     }
   }, {
     key: "render",
@@ -134,19 +134,71 @@ var Window = /*#__PURE__*/function (_Component) {
         className: "flex-grow-1 p-1 fenestra-window-body"
       }, void 0, /*#__PURE__*/_jsx(this.props.fenestra.content, {
         fenestra: this.props.fenestra
-      }), /*#__PURE__*/_jsx("div", {
+      })), /*#__PURE__*/_jsx("div", {
         onMouseDown: function onMouseDown(event) {
-          return _this.startResize(event);
+          return _this.startResize(event, "n");
         },
         onTouchStart: function onTouchStart(event) {
-          return _this.startResize(event);
+          return _this.startResize(event, "n");
         },
-        className: "fenestra-window-resize"
-      }, void 0, _FontAwesomeIcon3 || (_FontAwesomeIcon3 = /*#__PURE__*/_jsx(FontAwesomeIcon, {
-        icon: faRulerCombined,
-        flip: "horizontal",
-        size: "xs"
-      })))));
+        className: "fenestra-window-resize fenestra-window-resize-n"
+      }), /*#__PURE__*/_jsx("div", {
+        onMouseDown: function onMouseDown(event) {
+          return _this.startResize(event, "s");
+        },
+        onTouchStart: function onTouchStart(event) {
+          return _this.startResize(event, "s");
+        },
+        className: "fenestra-window-resize fenestra-window-resize-s"
+      }), /*#__PURE__*/_jsx("div", {
+        onMouseDown: function onMouseDown(event) {
+          return _this.startResize(event, "e");
+        },
+        onTouchStart: function onTouchStart(event) {
+          return _this.startResize(event, "e");
+        },
+        className: "fenestra-window-resize fenestra-window-resize-e"
+      }), /*#__PURE__*/_jsx("div", {
+        onMouseDown: function onMouseDown(event) {
+          return _this.startResize(event, "w");
+        },
+        onTouchStart: function onTouchStart(event) {
+          return _this.startResize(event, "w");
+        },
+        className: "fenestra-window-resize fenestra-window-resize-w"
+      }), /*#__PURE__*/_jsx("div", {
+        onMouseDown: function onMouseDown(event) {
+          return _this.startResize(event, "nw");
+        },
+        onTouchStart: function onTouchStart(event) {
+          return _this.startResize(event, "nw");
+        },
+        className: "fenestra-window-resize fenestra-window-resize-nw"
+      }), /*#__PURE__*/_jsx("div", {
+        onMouseDown: function onMouseDown(event) {
+          return _this.startResize(event, "ne");
+        },
+        onTouchStart: function onTouchStart(event) {
+          return _this.startResize(event, "ne");
+        },
+        className: "fenestra-window-resize fenestra-window-resize-ne"
+      }), /*#__PURE__*/_jsx("div", {
+        onMouseDown: function onMouseDown(event) {
+          return _this.startResize(event, "se");
+        },
+        onTouchStart: function onTouchStart(event) {
+          return _this.startResize(event, "se");
+        },
+        className: "fenestra-window-resize fenestra-window-resize-se"
+      }), /*#__PURE__*/_jsx("div", {
+        onMouseDown: function onMouseDown(event) {
+          return _this.startResize(event, "sw");
+        },
+        onTouchStart: function onTouchStart(event) {
+          return _this.startResize(event, "sw");
+        },
+        className: "fenestra-window-resize fenestra-window-resize-sw"
+      }));
     }
   }]);
 

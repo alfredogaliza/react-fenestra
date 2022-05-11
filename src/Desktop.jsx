@@ -32,6 +32,8 @@ class Desktop extends Component {
         posY: 0,
         orgX: 0,
         orgY: 0,
+        orgT: 0,
+        orgL: 0,
         index: 1
     }
 
@@ -49,7 +51,7 @@ class Desktop extends Component {
             setPosition: (top, left, w = window) => this.setPosition(top, left, w),
             setSize: (width, height, w = window) => this.setSize(width, height, w),
             startMove: (posX, posY, w = window) => this.startMove(posX, posY, w),
-            startResize: (posX, posY, w = window) => this.startResize(posX, posY, w),
+            startResize: (posX, posY, dir = "nwse", w = window) => this.startResize(posX, posY, dir, w),
         }
 
     }
@@ -73,10 +75,12 @@ class Desktop extends Component {
         }));
     }
 
-    startResize(posX, posY, window) {
+    startResize(posX, posY, dir, window) {
 
         const orgX = this.state.windows.find(w => w.index === window.index)?.width;
         const orgY = this.state.windows.find(w => w.index === window.index)?.height;
+        const orgT = this.state.windows.find(w => w.index === window.index)?.top;
+        const orgL = this.state.windows.find(w => w.index === window.index)?.left;
 
         this.setState(state => ({
             windows: state.windows.map(w =>
@@ -88,7 +92,7 @@ class Desktop extends Component {
                     w
             ),
             isResizing: true,
-            posX, posY, orgX, orgY
+            posX, posY, orgX, orgY, dir, orgT, orgL
         }));
     }
 
@@ -101,7 +105,8 @@ class Desktop extends Component {
                     resizing: false
                 })),
                 isMoving: false,
-                isResizing: false
+                isResizing: false,
+                dir: "none"
             }));
         }
 
@@ -126,8 +131,22 @@ class Desktop extends Component {
                         (w.resizing ?
                             {
                                 ...w,
-                                width: Math.min(Math.max(240, state.orgX + (posX - state.posX)), rect.width - w.left),
-                                height: Math.min(Math.max(120, state.orgY + (posY - state.posY)), rect.height - w.top)
+                                top: state.dir.includes("n")? 
+                                    Math.min(Math.max(0, state.orgT + (posY - state.posY)), rect.height - w.height) :
+                                    w.top,
+                                left: state.dir.includes("w")? 
+                                    Math.min(Math.max(0, state.orgL + (posX - state.posX)), rect.width - w.width) :
+                                    w.left,
+                                width: state.dir.includes("w") ? 
+                                    Math.min(Math.max(0, state.orgX - (posX - state.posX)), rect.width - w.left) :
+                                    (state.dir.includes("e") ? 
+                                        Math.min(Math.max(0, state.orgX + (posX - state.posX)), rect.width - w.left) :
+                                        w.width),
+                                height: state.dir.includes("n")? 
+                                    Math.min(Math.max(0, state.orgY - (posY - state.posY)), rect.height - w.top) : 
+                                    (state.dir.includes("s")? 
+                                        Math.min(Math.max(0, state.orgY + (posY - state.posY)), rect.height - w.top) :                                     
+                                        w.height)
                             } :
                             w),
                 )
@@ -254,11 +273,11 @@ class Desktop extends Component {
         return (
             <div
                 ref = {this.ref}
-                className={`d-flex flex-column fenestra-desktop ${this.state.isMoving ? 'fenestra-desktop-moving' : ''} ${this.state.isResizing ? 'fenestra-desktop-resizing' : ''}`}
+                className={`d-flex flex-column fenestra-desktop ${this.state.isMoving ? 'fenestra-desktop-moving ' : ''} ${this.state.isResizing ? `fenestra-desktop-resizing-${this.state.dir}` : ''} `}
             >
                 <div
                     onMouseMove={event => this.move(event)} onTouchMove={event => this.move(event)}
-                    onMouseUp={() => this.stopMove()} onTouchEnd={() => this.stopMove()}
+                    onMouseUp={() => this.stopMove()} onTouchEnd={() => this.stopMove()} onMouseLeave={() => this.stopMove()}
                     className="w-100 flex-grow-1 d-flex flex-column flex-wrap align-content-start bg-light fenestra-desktop-icons">
                     {this.props.icons.map((Icon, key) => <Icon key={key} fenestra={this.api()} />)}
                     {this.state.windows.map(fenestra => <Window key={fenestra.index} fenestra={fenestra} />)}

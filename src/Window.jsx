@@ -28,11 +28,11 @@ class Window extends Component {
         }
     }
 
-    startResize(event) {
+    startResize(event, dir) {
         event.stopPropagation();
         const posX = event.clientX || event.targetTouches[0]?.pageX;
         const posY = event.clientY || event.targetTouches[0]?.pageY;
-        this.props.fenestra.startResize(posX, posY);
+        this.props.fenestra.startResize(posX, posY, dir);
     }
 
     render() {
@@ -41,7 +41,7 @@ class Window extends Component {
             top: this.props.fenestra.top,
             left: this.props.fenestra.left,
             width: this.props.fenestra.width,
-            height: this.props.fenestra.height
+            height: this.props.fenestra.height,
         };
 
         return (
@@ -81,13 +81,39 @@ class Window extends Component {
                 </Card.Header>
                 <Card.Body className="flex-grow-1 p-1 fenestra-window-body">
                     <this.props.fenestra.content fenestra={this.props.fenestra} />
-                    <div
-                        onMouseDown={event => this.startResize(event)}
-                        onTouchStart={event => this.startResize(event)}
-                        className="fenestra-window-resize">
-                        <FontAwesomeIcon icon={faRulerCombined} flip="horizontal" size="xs" />
-                    </div>
                 </Card.Body>
+                <div
+                    onMouseDown={event => this.startResize(event, "n")}
+                    onTouchStart={event => this.startResize(event, "n")}
+                    className="fenestra-window-resize fenestra-window-resize-n" />
+                <div
+                    onMouseDown={event => this.startResize(event, "s")}
+                    onTouchStart={event => this.startResize(event, "s")}
+                    className="fenestra-window-resize fenestra-window-resize-s" />
+                <div
+                    onMouseDown={event => this.startResize(event, "e")}
+                    onTouchStart={event => this.startResize(event, "e")}
+                    className="fenestra-window-resize fenestra-window-resize-e" />
+                <div
+                    onMouseDown={event => this.startResize(event, "w")}
+                    onTouchStart={event => this.startResize(event, "w")}
+                    className="fenestra-window-resize fenestra-window-resize-w" />
+                <div
+                    onMouseDown={event => this.startResize(event, "nw")}
+                    onTouchStart={event => this.startResize(event, "nw")}
+                    className="fenestra-window-resize fenestra-window-resize-nw" />
+                <div
+                    onMouseDown={event => this.startResize(event, "ne")}
+                    onTouchStart={event => this.startResize(event, "ne")}
+                    className="fenestra-window-resize fenestra-window-resize-ne" />
+                <div
+                    onMouseDown={event => this.startResize(event, "se")}
+                    onTouchStart={event => this.startResize(event, "se")}
+                    className="fenestra-window-resize fenestra-window-resize-se" />
+                <div
+                    onMouseDown={event => this.startResize(event, "sw")}
+                    onTouchStart={event => this.startResize(event, "sw")}
+                    className="fenestra-window-resize fenestra-window-resize-sw" />
             </Card>
         );
     }

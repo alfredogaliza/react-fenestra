@@ -1,5 +1,6 @@
 .fenestra-desktop {
   position: absolute;
+  overflow: hidden;
   top: 0;
   left: 0;
   bottom: 0;
@@ -18,8 +19,16 @@
   cursor: grabbing !important;
 }
 
-.fenestra-desktop-resizing * {
+.fenestra-desktop-resizing-nwse * {
   cursor: nwse-resize !important;
+}
+
+.fenestra-desktop-resizing-ns * {
+  cursor: ns-resize !important;
+}
+
+.fenestra-desktop-resizing-ew * {
+  cursor: ew-resize !important;
 }
 
 .fenestra-window {
@@ -56,6 +65,10 @@
     border-radius: 0px !important;
     border: none !important;
   }
+
+  .fenestra-window-resize {
+    display: none
+  }
 }
 
 .fenestra-window-active {
@@ -80,21 +93,81 @@
 
 .fenestra-window-title {
   cursor: grab;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .fenestra-window-resize {
   position: absolute;
-  bottom: 5px;
-  right: 8px;
-  padding: 0;
+  background-color: transparent;
 }
 
-.fenestra-window-resize:hover {
+.fenestra-window-resize-n {
+  top: -8px;
+  right: 0;
+  left: 0;
+  height: 8px;
+  cursor: ns-resize;
+}
+
+.fenestra-window-resize-s {
+  bottom: -8px;
+  right: 0;
+  left: 0;
+  height: 8px;
+  cursor: ns-resize;
+}
+
+.fenestra-window-resize-e {
+  right: -8px;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  cursor: ew-resize;
+}
+
+.fenestra-window-resize-w {
+  left: -8px;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  cursor: ew-resize;
+}
+
+.fenestra-window-resize-nw {
+  top: -8px;
+  left: -8px;
+  width: 8px;
+  height: 8px;
   cursor: nwse-resize;
-  color: white;
 }
 
-.fenestra-window-maximized > .fenestra-window-body > .fenestra-window-resize {
+.fenestra-window-resize-se {
+  bottom: -8px;
+  right: -8px;
+  width: 8px;
+  height: 8px;
+  cursor: nwse-resize;
+}
+
+.fenestra-window-resize-ne {
+  top: -8px;
+  right: -8px;
+  width: 8px;
+  height: 8px;
+  cursor: nesw-resize;
+}
+
+.fenestra-window-resize-sw {
+  bottom: -8px;
+  left: -8px;
+  width: 8px;
+  height: 8px;
+  cursor: nesw-resize;
+}
+
+.fenestra-window-maximized > .fenestra-window-resize {
   display: none;
 }
 

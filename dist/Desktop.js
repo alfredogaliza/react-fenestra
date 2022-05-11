@@ -62,6 +62,8 @@ var Desktop = /*#__PURE__*/function (_Component) {
       posY: 0,
       orgX: 0,
       orgY: 0,
+      orgT: 0,
+      orgL: 0,
       index: 1
     });
 
@@ -121,8 +123,9 @@ var Desktop = /*#__PURE__*/function (_Component) {
           return _this2.startMove(posX, posY, w);
         },
         startResize: function startResize(posX, posY) {
-          var w = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : window;
-          return _this2.startResize(posX, posY, w);
+          var dir = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "nwse";
+          var w = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : window;
+          return _this2.startResize(posX, posY, dir, w);
         }
       });
     }
@@ -154,8 +157,8 @@ var Desktop = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "startResize",
-    value: function startResize(posX, posY, window) {
-      var _this$state$windows$f3, _this$state$windows$f4;
+    value: function startResize(posX, posY, dir, window) {
+      var _this$state$windows$f3, _this$state$windows$f4, _this$state$windows$f5, _this$state$windows$f6;
 
       var orgX = (_this$state$windows$f3 = this.state.windows.find(function (w) {
         return w.index === window.index;
@@ -163,6 +166,12 @@ var Desktop = /*#__PURE__*/function (_Component) {
       var orgY = (_this$state$windows$f4 = this.state.windows.find(function (w) {
         return w.index === window.index;
       })) === null || _this$state$windows$f4 === void 0 ? void 0 : _this$state$windows$f4.height;
+      var orgT = (_this$state$windows$f5 = this.state.windows.find(function (w) {
+        return w.index === window.index;
+      })) === null || _this$state$windows$f5 === void 0 ? void 0 : _this$state$windows$f5.top;
+      var orgL = (_this$state$windows$f6 = this.state.windows.find(function (w) {
+        return w.index === window.index;
+      })) === null || _this$state$windows$f6 === void 0 ? void 0 : _this$state$windows$f6.left;
       this.setState(function (state) {
         return {
           windows: state.windows.map(function (w) {
@@ -174,7 +183,10 @@ var Desktop = /*#__PURE__*/function (_Component) {
           posX: posX,
           posY: posY,
           orgX: orgX,
-          orgY: orgY
+          orgY: orgY,
+          dir: dir,
+          orgT: orgT,
+          orgL: orgL
         };
       });
     }
@@ -191,7 +203,8 @@ var Desktop = /*#__PURE__*/function (_Component) {
               });
             }),
             isMoving: false,
-            isResizing: false
+            isResizing: false,
+            dir: "none"
           };
         });
       }
@@ -212,8 +225,10 @@ var Desktop = /*#__PURE__*/function (_Component) {
                 top: Math.min(Math.max(0, state.orgY + (posY - state.posY)), rect.height - w.height),
                 left: Math.min(Math.max(0, state.orgX + (posX - state.posX)), rect.width - w.width)
               }) : w.resizing ? _objectSpread(_objectSpread({}, w), {}, {
-                width: Math.min(Math.max(240, state.orgX + (posX - state.posX)), rect.width - w.left),
-                height: Math.min(Math.max(120, state.orgY + (posY - state.posY)), rect.height - w.top)
+                top: state.dir.includes("n") ? Math.min(Math.max(0, state.orgT + (posY - state.posY)), rect.height - w.height) : w.top,
+                left: state.dir.includes("w") ? Math.min(Math.max(0, state.orgL + (posX - state.posX)), rect.width - w.width) : w.left,
+                width: state.dir.includes("w") ? Math.min(Math.max(0, state.orgX - (posX - state.posX)), rect.width - w.left) : state.dir.includes("e") ? Math.min(Math.max(0, state.orgX + (posX - state.posX)), rect.width - w.left) : w.width,
+                height: state.dir.includes("n") ? Math.min(Math.max(0, state.orgY - (posY - state.posY)), rect.height - w.top) : state.dir.includes("s") ? Math.min(Math.max(0, state.orgY + (posY - state.posY)), rect.height - w.top) : w.height
               }) : w;
             })
           };
@@ -368,7 +383,7 @@ var Desktop = /*#__PURE__*/function (_Component) {
 
       return /*#__PURE__*/_jsxs("div", {
         ref: this.ref,
-        className: "d-flex flex-column fenestra-desktop ".concat(this.state.isMoving ? 'fenestra-desktop-moving' : '', " ").concat(this.state.isResizing ? 'fenestra-desktop-resizing' : ''),
+        className: "d-flex flex-column fenestra-desktop ".concat(this.state.isMoving ? 'fenestra-desktop-moving ' : '', " ").concat(this.state.isResizing ? "fenestra-desktop-resizing-".concat(this.state.dir) : '', " "),
         children: [/*#__PURE__*/_jsx("div", {
           onMouseMove: function onMouseMove(event) {
             return _this4.move(event);
@@ -380,6 +395,9 @@ var Desktop = /*#__PURE__*/function (_Component) {
             return _this4.stopMove();
           },
           onTouchEnd: function onTouchEnd() {
+            return _this4.stopMove();
+          },
+          onMouseLeave: function onMouseLeave() {
             return _this4.stopMove();
           },
           className: "w-100 flex-grow-1 d-flex flex-column flex-wrap align-content-start bg-light fenestra-desktop-icons"
