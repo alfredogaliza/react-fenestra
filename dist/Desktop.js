@@ -30,6 +30,8 @@ var defaults = {
   active: true,
   width: 600,
   height: 400,
+  top: 0,
+  left: 0,
   moving: false,
   resizing: false,
   resizeable: true,
@@ -222,13 +224,13 @@ var Desktop = /*#__PURE__*/function (_Component) {
           return {
             windows: state.windows.map(function (w) {
               return w.moving ? _objectSpread(_objectSpread({}, w), {}, {
-                top: Math.min(Math.max(0, state.orgY + (posY - state.posY)), rect.height - w.height),
-                left: Math.min(Math.max(0, state.orgX + (posX - state.posX)), rect.width - w.width)
+                top: Math.max(Math.min(rect.height - w.height, state.orgY + (posY - state.posY)), 0),
+                left: Math.max(Math.min(rect.width - w.width, state.orgX + (posX - state.posX)), 0)
               }) : w.resizing ? _objectSpread(_objectSpread({}, w), {}, {
-                top: state.dir.includes("n") ? Math.min(Math.max(0, state.orgT + (posY - state.posY)), rect.height - w.height) : w.top,
-                left: state.dir.includes("w") ? Math.min(Math.max(0, state.orgL + (posX - state.posX)), rect.width - w.width) : w.left,
-                width: state.dir.includes("w") ? Math.min(Math.max(0, state.orgX - (posX - state.posX)), rect.width - w.left) : state.dir.includes("e") ? Math.min(Math.max(0, state.orgX + (posX - state.posX)), rect.width - w.left) : w.width,
-                height: state.dir.includes("n") ? Math.min(Math.max(0, state.orgY - (posY - state.posY)), rect.height - w.top) : state.dir.includes("s") ? Math.min(Math.max(0, state.orgY + (posY - state.posY)), rect.height - w.top) : w.height
+                top: state.dir.includes("n") ? Math.max(Math.min(rect.height - w.height, state.orgT + (posY - state.posY)), 0) : w.top,
+                left: state.dir.includes("w") ? Math.max(Math.min(rect.width - w.width, state.orgL + (posX - state.posX)), 0) : w.left,
+                width: state.dir.includes("w") ? Math.min(Math.max(240, state.orgX - (posX - state.posX)), rect.width - w.left) : state.dir.includes("e") ? Math.min(Math.max(240, state.orgX + (posX - state.posX)), rect.width - w.left) : w.width,
+                height: state.dir.includes("n") ? Math.min(Math.max(160, state.orgY - (posY - state.posY)), rect.height - w.top) : state.dir.includes("s") ? Math.min(Math.max(160, state.orgY + (posY - state.posY)), rect.height - w.top) : w.height
               }) : w;
             })
           };
@@ -342,9 +344,7 @@ var Desktop = /*#__PURE__*/function (_Component) {
         return undefined;
       };
       var newWindow = this.api(_objectSpread(_objectSpread(_objectSpread({}, defaults), {}, {
-        active: true,
-        top: 54 + 54 * (this.index % 6),
-        left: 20 + this.index * 50
+        active: true
       }, window), {}, {
         index: this.index++
       }));

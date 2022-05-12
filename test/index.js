@@ -16,8 +16,8 @@ icons={[
     <Icon title="Abrir Janela"
       icon={<FontAwesomeIcon icon={faWindowRestore} size="3x" />}
       onClick={() => fenestra.open({
-        title: "Desktop",
-        content: ({ fenestra }) => <h1>Olá Mundo</h1>
+        title: "Janela",
+        content: ({ fenestra }) => <h3>Tente maximizar, minimizar, abrir outras janelas, mover e redimensionar</h3>
       })}
     />
 ]}
@@ -28,10 +28,10 @@ root.render(
     <Desktop
       icons={[
         ({ fenestra }) =>
-          <Icon title="Abrir Janela"
+          <Icon title="Abrir Desktop Embutido"
             icon={<FontAwesomeIcon icon={faWindowRestore} size="3x" />}
             onClick={() => fenestra.open({
-              title: "Nova Janela",
+              title: "Desktop Embutido",
               content: ({ fenestra }) => desktop
             })}
           />

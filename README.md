@@ -123,6 +123,9 @@ Todos os componentes renderizados no conteúdo das janelas recebem a propriedade
 |startResize| Função | (posX, posY, dir, w = window) => undefined| Inicia o redimensionamento da janela a partir da posição atual.
 
 # Notas da Versão
+## 1.1.0
+* Aprimoramento do redimensionamento das janelas
+
 ## 1.0.9
 * Melhorias na responsividade da interface
 
